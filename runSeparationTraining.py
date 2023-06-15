@@ -312,10 +312,7 @@ if (plotInputDebug or doTraining or plotOutputDebug):
         print(" -> Config: " + config)
         for muonPhase in muonPhases:
             print(" -> Muon phases: " + muonPhase)
-            if ("hybrid" in config) or ("mono" in config):
-                subFolderName = "v4.2"
-            else:
-                subFolderName = "v3.6.1"
+            subFolderName = "v4.2"
             os.system("rm " + workDirectory + "/config/" + config + "/" + muonPhase + "/" + subFolderName + "/weights/*")
             for zenith in zenithAngles:
                 for azimuth in azimuthAngles:
@@ -369,19 +366,14 @@ if (plotInputDebug or doTraining or plotOutputDebug):
 
     if (doTraining):
 
+        os.system("chmod a+x scripts/checkMissingWeights.sh")
+
         for config in configs:
             for muonPhase in muonPhases:
-                if ('hybrid' in config) or ('mono' in config):
-                    subFolderName = 'v4.2'
-                    weightFileType = 'xml'
-                    scaledEfficiencyROOTFile = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + "_0.5degoffset.root" # apparently HAP can just deal with 0.5 deg?
-                else: # can't export the files to txt as hap expect the old versions. Going around needed.
-                    subFolderName = 'v4.2'
-                    weightFileType = 'xml'
-                    scaledEfficiencyROOTFile = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/ScaledEff2_" + config + ".root" # hard coded in HAP
+                scaledEfficiencyROOTFile = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + "_0.5degoffset.root" # apparently HAP can just deal with 0.5 deg?
                 if ('hybrid' in config) or ('stereo' in config):                
                     for zenith in zenithAngles:
-                        os.system("scripts/checkMissingWeights.sh " + workDirectory + "/config/" + config + "/" + muonPhase + "/" + subFolderName + "/weights/ " + config + " " + str(zenith) + " " + weightFileType)
+                        os.system("scripts/checkMissingWeights.sh " + workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ " + config + " " + str(zenith) + " " + "xml")
                 if os.path.exists(scaledEfficiencyROOTFile):
                     os.system("rm " + scaledEfficiencyROOTFile)
                 if (not useSizeRanges and not useEnergyRanges):

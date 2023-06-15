@@ -216,38 +216,20 @@ if (len(signalInput[0]) > 0 and len(backgroundInput[0]) > 0):
         print(" -> Best parameters found at: (" + str(backgroundToSignalFraction) + ", " + str(testToTrainFraction) + ", " + str(xgboosterParameters["n_estimators"]) + ", " + str(xgboosterParameters["max_depth"]) + ", " + str(xgboosterParameters["learning_rate"]) + ", " + str(xgboosterParameters["gamma"]) + ", " + str(xgboosterParameters["reg_alpha"]) + ", " + str(xgboosterParameters["scale_pos_weight"]) + ", " + str(xgboosterParameters["min_child_weight"]) + ", " + str(xgboosterParameters["max_delta_step"]) + ", " + str(xgboosterParameters["subsample"]) + ")")
         model, splitData, featureImportances = train(signalInput, backgroundInput, classifier, testToTrainFraction, xgboosterParameters)
         print(" -> Converting weigths to TMVA")
-        if ('hybrid' in config) or ('mono' in config):
-            if not os.path.exists(workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/"):
-                os.makedirs(workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/")
-        else:
-            if not os.path.exists(workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/"):
-                os.makedirs(workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/")
-        if ('hybrid' in config) or ('mono' in config):
-            if (not hasEnergyRange and not hasSizeRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_BDT.weights.xml'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset'
-            if (hasEnergyRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV_BDT.weights.xml'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV'
-            if (hasSizeRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe_BDT.weights.xml'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe'
-        else:  # HAP expect .txt files for stereo
-            if (not hasEnergyRange and not hasSizeRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_BDT.weights.txt'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset'
-            if (hasEnergyRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV_BDT.weights.txt'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV'
-            if (hasSizeRange):
-                outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe_BDT.weights.txt'
-                scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v3.6.1/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe.root'
-                histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe'
+        if not os.path.exists(workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/"):
+            os.makedirs(workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/")
+        if (not hasEnergyRange and not hasSizeRange):
+            outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_BDT.weights.xml'
+            scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset.root'
+            histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset'
+        if (hasEnergyRange):
+            outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV_BDT.weights.xml'
+            scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV.root'
+            histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(energyRange[0]) + 'to' + str(energyRange[1]) + 'TeV'
+        if (hasSizeRange):
+            outputName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe_BDT.weights.xml'
+            scaledEffFileName = workDirectory + "/config/" + config + "/" + muonPhase + "/v4.2/weights/ScaledEff2_" + config + '_' + str(zenith) + 'degzenith_' + str(offset) + 'degoffset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe.root'
+            histogramTitle = str(zenith) + 'deg_zenith_' + str(offset) + 'deg_offset_' + str(sizeRange[0]) + 'to' + str(sizeRange[1]) + 'pe'
         featureNames = convertWeightsToTMVA(model, variablesNameForTMVA, outputName, scaledEffFileName,histogramTitle, splitData)
         if (plotOutputDebug):
             print(" -> Plotting output information")

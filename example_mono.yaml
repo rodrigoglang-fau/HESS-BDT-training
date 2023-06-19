@@ -30,7 +30,7 @@ Signal: "Gamma" # "Gamma", "Gamma-diffusive"
 Background: "Offruns" # "Offruns", "Proton", "Selmuon" (for mono)
 VariablesForInputTrees: ["MCTrueImpactParameter", "MCTrueEnergy", "Energy", "HillasImageAmplitude", "HillasLength", "HillasWidth", "HillasSkewness", "HillasKurtosis", "HillasNPix", "HillasLocalDistance", "PsiSq", "Length", "X2", "X0", "Width2", "Width1", "Radius", "ChargeAsym", "TimeGradient", "LogSize", "LengthOverLogSize", "LengthOverSize", "LogDensity", "Known", "Hmax", "MCTrueShowermax", "ZetaBDT", "RunNr", "EventNr", "BunchNr", "MCTrueNominalX", "MCTrueNominalY", "Delta"]
 VariablesNameForTMVA: [["HillasLength[4]", "F"], ["HillasWidth[4]", "F"], ["Abs(HillasSkewness[4])", "F"], ["HillasKurtosis[4]", "F"], ["LengthOverLogSize[4]", "F"], ["LogDensity[4]", "F"]]
-#MaxOffrunsEventsForInputTrees: 1000
+#MaxOffrunsEvents: 100000 # number of events used to generation input and optimization trees, set as 0 to use all events
 
 # Ranges for the training
 
@@ -55,13 +55,10 @@ NormalizationFactor: 0.1
 MinimumSignalEfficiency: 0.
 Verbose: True
 ZenithAngleForOptimization: 20
-#MaxOffrunsEvents: 1000000 # numevents used to generate optimization tree, set as 0 to use all events
 
 # BDT options - comment out for standard ones - just change these values if you know what you are doing
 
 TestToTrainFraction: [0.1]
-MaxEvents: 10000000
-#MinEvents: 1000
 BackgroundToSignalFraction: [2]
 Classifier: "XGBRegressor"
 #n_estimators: [1, 100]

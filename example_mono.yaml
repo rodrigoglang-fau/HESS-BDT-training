@@ -61,6 +61,7 @@ ZenithAngleForOptimization: 20
 TestToTrainFraction: [0.1]
 BackgroundToSignalFraction: [2]
 Classifier: "XGBRegressor"
+MaxEvents: 10000000
 #n_estimators: [1, 100]
 #max_depth: [1]
 #learning_rate: [1]

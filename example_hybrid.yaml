@@ -60,6 +60,7 @@ Verbose: True
 TestToTrainFraction: [0.1]
 BackgroundToSignalFraction: [2]
 Classifier: "XGBRegressor"
+MaxEvents: 10000000
 #n_estimators: 200
 #max_depth: 70
 #learning_rate: 1

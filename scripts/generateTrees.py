@@ -43,7 +43,7 @@ def getMuonEntry(muonPhase):
     if (muonPhase == '2d2'):
         return(401)
     if (muonPhase == '2d3'):
-        return(402)
+        return(401)
     if (muonPhase == '2d4'):
         return(402)
     return(0)
@@ -115,11 +115,11 @@ def generateTrees(workDirectory, config, data, variables, muonPhase, zenithAngle
                     output = '{}_{}_{}_{}deg_{}deg_{}deg'.format(data, config, muonPhase, zenith, azimuth, offsetString)
                     logFile = workDirectory + '/logs/GenerateTress-' + output + '.log'
 
-                    command = 'export HESSCONFIG=' + workDirectory + '/config/' + '; export HESSDST={}; export HESSDATA={};'.format(environmentVariables["HESSDST"],environmentVariables["HESSDATA"])
+                    command = 'export LD_LIBRARY_PATH="/nfs/d22/hfm/hess/Base_Software_Linux64_gcc4.8a/usr/lib64:/opt/gnome/lib:/nfs/d22/hfm/hess/Base_Software_Linux64_gcc4.8a/usr/lib64/root:/home/hfm/hess/hap-head/lib"; export HESSCONFIG=' + workDirectory + '/config/' + '; export HESSDST={}; export HESSDATA={}; export HESSROOT={}; '.format(environmentVariables["HESSDST"],environmentVariables["HESSDATA"],environmentVariables['HESSROOT'])
                     command += environmentVariables["HESSROOT"] + '/hddst/scripts/hap_split_mc.pl '
                     command += '--include ' + workDirectory + '/temp_scripts/empty.conf --config ' + config + ' --outdir ' + workDirectory + '/hap/ --outfile ' + output
                     command += ' --mc true --filelist ' + workDirectory + '/lists/' + data + '-' + muonPhase + '-' + str(zenith) + 'deg-' + str(azimuth) + 'deg-' + str(offset) + 'deg.lis'
-                    command += ' --Analysis/MuonEntry ' + str(getMuonEntry(muonPhase))
+                    command += ' --Analysis/LegacyIRFMode --Analysis/MuonEntry ' + str(getMuonEntry(muonPhase))
                     command += ' --Diagnostics/WriteEventTree true --Diagnostics/DiagnosticFolder Preselect --Diagnostics/ListOfVariables '
 
                     if not os.path.exists(workDirectory + '/lists/' + data + '-' + muonPhase + '-' + str(zenith) + 'deg-' + str(azimuth) + 'deg-' + str(offset) + 'deg.lis'):
@@ -133,7 +133,7 @@ def generateTrees(workDirectory, config, data, variables, muonPhase, zenithAngle
                 output = '{}_{}_{}_{}deg_{}deg'.format(data, config, muonPhase, zenith, azimuth)
                 logFile = workDirectory + '/logs/GenerateTress-' + output + '.log'
 
-                command = 'export HESSCONFIG=' + workDirectory + '/config/' + '; export HESSDST={}; export HESSDATA={};'.format(environmentVariables["HESSDST"],environmentVariables["HESSDATA"])
+                command = 'export LD_LIBRARY_PATH="/nfs/d22/hfm/hess/Base_Software_Linux64_gcc4.8a/usr/lib64:/opt/gnome/lib:/nfs/d22/hfm/hess/Base_Software_Linux64_gcc4.8a/usr/lib64/root:/home/hfm/hess/hap-head//lib"; export HESSCONFIG=' + workDirectory + '/config/' + '; export HESSDST={}; export HESSDATA={}; export HESSROOT={}; '.format(environmentVariables["HESSDST"],environmentVariables["HESSDATA"],environmentVariables['HESSROOT'])
                 if (data == 'Proton' or data == 'Selmuon' or data == 'Gamma-diffuse'):
                     command += environmentVariables["HESSROOT"] + '/hddst/scripts/hap_split_mc.pl '
                     command += '--mc true --filelist ' + workDirectory + '/lists/' + data + '-' + muonPhase + '-' + str(zenith) + 'deg-' + str(azimuth) + 'deg.lis'
@@ -150,7 +150,7 @@ def generateTrees(workDirectory, config, data, variables, muonPhase, zenithAngle
 
                     command += ' --Background/Method PMBg --Background/FOV 3.0 --Background/AcceptanceFromData false --Background/MaximumEventOffset 2.5 --Background/UseTelPdependent true'
                 command += ' --include ' + workDirectory + '/temp_scripts/empty.conf --config ' + config + ' --outdir ' + workDirectory + '/hap/ --outfile ' + output
-                command += ' --Analysis/MuonEntry ' + str(getMuonEntry(muonPhase))
+                command += ' --Analysis/LegacyIRFMode --Analysis/MuonEntry ' + str(getMuonEntry(muonPhase))
                 if (data == 'Offruns' and maxOffrunsEvents != 0):
                     command += ' --numevents ' + str(maxOffrunsEvents)
 

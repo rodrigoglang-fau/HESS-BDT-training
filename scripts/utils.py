@@ -66,7 +66,7 @@ def submit_job_ws(command, prefix, short, log_file, script_dir):
 
 def submit_job_qrun(command, logfile, short=' -s '):
     import subprocess
-
+    short = ' '
     cmd = '''qrun -cd{}-o {} '{}' '''.format(short, logfile, command)
     print('Submitting: ' + cmd)
     submit_output = subprocess.check_output(cmd, shell=True).decode("utf-8").split('\n')[:-1]

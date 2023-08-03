@@ -2,24 +2,24 @@
 
 MakeEnergyShape: False # These steps are not used for mono configs!
 MakeOffEnergyShape: False # These steps are not used for mono configs!
-GenerateInputTrees: False
-PlotInputDebug: False
+GenerateInputTrees: True
+PlotInputDebug: True
 DoTraining: False
 PlotOutputDebug: False
 GenerateTreesForOptimization: False
 OptimizeCuts: False
 PlotOptimizationResults: False
 FinishLookupTables: False
-PlotIRFs: True
+PlotIRFs: False
 
 # Folders
 
-MainDirectory: "/lfs/l7/hess/users/rglang/EventClassesMC/xgboosttraining"
-TrainingName: "classes-mono"
+MainDirectory: "/home/timu/woody/timu/BDT/HESS-BDT-training"
+TrainingName: "mono"
 
 # Run options
 
-Configs: ["std_zeta_mono_classM"] # hap still looks for keywords like "zeta", "hybrid", "mono", "stereo", so careful choosing the config name.
+Configs: ["safe_zeta_mono_s250-S0"] # hap still looks for keywords like "zeta", "hybrid", "mono", "stereo", so careful choosing the config name.
 MuonPhases: ["2d3"]
 #ZenithAngles: [0,20,30,40,45,50,55]
 #ZenithAngles: [55]
@@ -37,7 +37,7 @@ VariablesNameForTMVA: [["HillasLength[4]", "F"], ["HillasWidth[4]", "F"], ["Abs(
 UseEnergyRanges: False
 EnergyRanges: [[0.05,0.1],[0.1,0.3],[0.3,0.5],[0.5,1.0],[1.0,2.0],[2.0,5.0],[5.0,100.0]]
 UseSizeRanges: True
-SizeRanges: [[250,100000]]
+SizeRanges: [[80,100000]]
 
 # Precuts
 

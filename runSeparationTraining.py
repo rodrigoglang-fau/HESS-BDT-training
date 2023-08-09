@@ -119,9 +119,6 @@ if (background != "Offruns" and background != "Proton" and background != "Selmuo
 if "VariablesForInputTrees" not in configOptions and generateInputTrees:
     sys.exit("ERROR! Variables for input trees not defined in the config file! Please use the option 'VariablesForInputTrees'.")
 variablesForInputTrees = configOptions["VariablesForInputTrees"]
-maxOffrunsEventsForInputTrees=0
-if "MaxOffrunsEventsForInputTrees" in configOptions:
-    maxOffrunsEventsForInputTrees = configOptions["MaxOffrunsEventsForInputTrees"]
 if "VariablesNameForTMVA" not in configOptions:
     sys.exit("ERROR! Name of the variables in the TMVA format not defined in the config file! Please use the option 'VariablesNameForTMVA'.")
 variablesNameForTMVA = configOptions["VariablesNameForTMVA"]
@@ -179,9 +176,6 @@ if generateTreesForOptimization or generateTrees:
     if ("MaxOffrunsEvents" in configOptions):
         maxOffrunsEvents = configOptions["MaxOffrunsEvents"]
 
-if ("MaxEvents" not in configOptions):
-    sys.exit("ERROR! Maximum number of events expected but not provided in the config file! Please use the option 'MaxEvents'.")
-maxEvents = int(configOptions["MaxEvents"])
 if ("BackgroundToSignalFraction" not in configOptions):
     sys.exit("ERROR! Fraction of background to signal events to be considered expected but not provided in the config file! Please use the option 'BackgroundToSignalFraction'.")
 optimizationArray_backgroundToSignalFraction = configOptions["BackgroundToSignalFraction"]
@@ -265,9 +259,9 @@ if (generateInputTrees):
         print(" -> Config: " + config)
         for muonPhase in muonPhases:
             print("  -> Muon phase: " + muonPhase)
-            newjobs = generateTrees(workDirectory, config, signal, variablesForInputTrees, muonPhase, zenithAngles, azimuthAngles, offsetAngles, environmentVariables, maxOffrunsEventsForInputTrees)
+            newjobs = generateTrees(workDirectory, config, signal, variablesForInputTrees, muonPhase, zenithAngles, azimuthAngles, offsetAngles, environmentVariables, maxOffrunsEvents)
             jobs = jobs + newjobs
-            newjobs = generateTrees(workDirectory, config, background, variablesForInputTrees, muonPhase, zenithAngles, azimuthAngles, offsetAngles, environmentVariables, maxOffrunsEventsForInputTrees)
+            newjobs = generateTrees(workDirectory, config, background, variablesForInputTrees, muonPhase, zenithAngles, azimuthAngles, offsetAngles, environmentVariables, maxOffrunsEvents)
             jobs = jobs + newjobs
     utils.wait_for_jobs_to_finish(jobs)
     jobs = []
